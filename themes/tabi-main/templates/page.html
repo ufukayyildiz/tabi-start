@@ -35,18 +35,11 @@
                 {%- endif -%}
                 Checking parent page: {{ potential_page }}
                 {%- set page_data = load_data(path=potential_page, required=false) -%}
-                {%- if page_data -%}
-                    {%- set_global current_section = get_page(path=potential_page) %}
-    Parent page found: {{ current_section.path }}
-                    {%- break -%}
-                {%- endif -%}
+
+                
                 Checking section: {{ potential_section }}
                 {%- set section_data = load_data(path=potential_section, required=false) -%}
-                {%- if section_data -%}
-                    {%- set_global current_section = get_section(path=potential_section, metadata_only=true) -%}
-                    Section found: {{ current_section.path }}
-                    {%- break -%}
-                {%- endif -%}
+            
             {%- endfor -%}
         {%- endif -%}
     {%- endif %}
