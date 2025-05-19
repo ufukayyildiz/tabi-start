@@ -6,73 +6,9 @@
 
 
 
-{# Debugging #}
-{# <div><pre>
-    Page path: {{ page.path }}
-    Page components: {{ page.components | join(sep=", ") }}
-    Page ancestors: {{ page.ancestors | join(sep=", ") }}
-    Current language: {{ lang }}
-    Default language: {{ config.default_language }}
-    Current section: {% if current_section %}{{ current_section.path }}{% else %}None{% endif %}
-    Page extra: {{ page.extra | json_encode() }}
-    {% if section -%}
-        {%- set current_section = section -%}
-    {%- elif page -%}
-        {%- set current_section = "" -%}
-        {%- if page.ancestors | length > 0 -%}
-            {%- set last_ancestor = page.ancestors | slice(start=-1) -%}
-            {%- set_global current_section = get_section(path=last_ancestor.0, metadata_only=true) -%}
-        {%- else -%}
-            {%- set components = page.components -%}
-            {%- for i in range(start=1, end=components | length) -%}
-                {%- if lang == config.default_language -%}
-                    {%- set potential_path = components | slice(end=components | length - i) | join(sep="/") -%}
-                    {%- set potential_page = potential_path ~ "/index.md" -%}
-                    {%- set potential_section = potential_path ~ "/_index.md" -%}
-                {%- else -%}
-                    {%- set potential_path = components | slice(start=1, end=components | length - i) | join(sep="/") -%}
-                    {%- set potential_page = potential_path ~ "/index." ~ lang ~ ".md" -%}
-                    {%- set potential_section = potential_path ~ "/_index." ~ lang ~ ".md" -%}
-                {%- endif -%}
-                Checking parent page: {{ potential_page }}
-                {%- set page_data = load_data(path=potential_page, required=false) -%}
-                {%- if page_data -%}
-                    {%- set_global current_section = get_page(path=potential_page) %}
-    Parent page found: {{ current_section.path }}
-                    {%- break -%}
-                {%- endif -%}
-                Checking section: {{ potential_section }}
-                {%- set section_data = load_data(path=potential_section, required=false) -%}
-                {%- if section_data -%}
-                    {%- set_global current_section = get_section(path=potential_section, metadata_only=true) -%}
-                    Section found: {{ current_section.path }}
-                    {%- break -%}
-                {%- endif -%}
-            {%- endfor -%}
-        {%- endif -%}
-    {%- endif %}
-Found nearest parent/section: {% if current_section %}{{ current_section.path }}{% else %}None{% endif %}
-Current section extra: {% if current_section %}{{ current_section.extra | json_encode() }}{% else %}None{% endif %}
 </pre></div>
 
-    {% set settings_to_test = [
-        "enable_cards_tag_filtering",
-        "footnote_backlinks",
-        "add_src_to_code_block",
-        "force_codeblock_ltr",
-        "copy_button",
-        "katex",
-        "quick_navigation_buttons",
-        "show_reading_time",
-        "show_date",
-        "show_author",
-        "show_remote_changes",
-        "toc",
-        "show_previous_next_article_links",
-        "invert_previous_next_article_links",
-        "previous_next_article_links_full_width",
-        "enable_csp",
-    ] %}
+
 
     <table>
         <thead>
@@ -81,7 +17,7 @@ Current section extra: {% if current_section %}{{ current_section.extra | json_e
                 <th>page</th>
                 <th>section</th>
                 <th>config</th>
-                <th>macro output</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -96,7 +32,7 @@ Current section extra: {% if current_section %}{{ current_section.extra | json_e
             {% endfor %}
         </tbody>
     </table>
-</div> #}
+</div>
 {# {{ __tera_context }} #}
 {# End debugging #}
 
@@ -196,10 +132,7 @@ Current section extra: {% if current_section %}{{ current_section.extra | json_e
                 {%- endif -%}
             {%- endif -%}
 
-            {#- Replace TOC and render final content -#}
-            {#- The replace pattern is used to enable arbitrary locations for the Table of Contents -#}
-            {#- This is Philipp Oppermann's workaround: https://github.com/getzola/zola/issues/584#issuecomment-474329637 -#}
-            {{ processed_content | replace(from="<!-- toc -->", to=macros_toc::toc(page=page, header=false, language_strings=language_strings)) | safe }}
+           
         </section>
 
        
