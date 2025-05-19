@@ -113,74 +113,17 @@ Current section extra: {% if current_section %}{{ current_section.extra | json_e
                 <li class="draft-label">{{ macros_translate::translate(key="draft", default="DRAFT", language_strings=language_strings) }}</li>
             {% endif %}
 
-            {#- Author(s) -#}
-            {% if page.authors or config.author and macros_settings::evaluate_setting_priority(setting="show_author", page=page, default_global_value=false) == "true" %}
-                {%- if page.authors -%}
-                    {%- set author_list = page.authors -%}
-                {%- else -%}
-                    {%- set author_list = [config.author] -%}
-                {%- endif -%}
-
-                {%- if author_list | length == 1 -%}
-                    {%- set author_string = author_list.0 -%}
-                {%- else -%}
-                    {%- set last_author = author_list | last -%}
-                    {%- set other_authors = author_list | slice(end=-1) -%}
-                    {%- set author_separator = macros_translate::translate(key="author_separator", default=", ", language_strings=language_strings) -%}
-                    {%- set conjunction = macros_translate::translate(key="author_conjunction", default=" and ", language_strings=language_strings) -%}
-                    {%- set author_string = other_authors | join(sep=author_separator) -%}
-                    {%- set author_string = author_string ~ conjunction ~ last_author -%}
-                {%- endif -%}
-
-                {%- set by_author = macros_translate::translate(key="by_author", default="By $AUTHOR", language_strings=language_strings) -%}
-                <li>{{ by_author | replace(from="$AUTHOR", to=author_string) }}</li>
-                {%- set previous_visible = true -%}
-            {% endif %}
-
-            {% if config.extra.hcard and config.extra.hcard.enable and ( not author_list or author_list is containing(config.author)) %}
-                {% include "partials/hcard_small.html" %}
-            {% endif %}
+            
 
             {%- set separator_with_class = "<span class='separator' aria-hidden='true'>" ~ separator ~ "</span>"-%}
 
-            {#- Date -#}
-            {% if page.date and macros_settings::evaluate_setting_priority(setting="show_date", page=page, default_global_value=true) == "true" %}
-                <li>{%- if previous_visible -%}{{ separator_with_class | safe }}{%- endif -%}{{ macros_format_date::format_date(date=page.date, short=true, language_strings=language_strings) }}</li>
-                {#- Variable to keep track of whether we've shown a section, to avoid separators as the first element -#}
-                {%- set previous_visible = true -%}
-            {% endif %}
+         
 
-            {#- Reading time -#}
-            {%- if macros_settings::evaluate_setting_priority(setting="show_reading_time", page=page, default_global_value=true) == "true" -%}
-                <li title="{{ macros_translate::translate(key="words", number=page.word_count, default="$NUMBER words", language_strings=language_strings) }}">{%- if previous_visible -%}{{ separator_with_class | safe }}{%- endif -%}{{ macros_translate::translate(key="min_read", number=page.reading_time, default="$NUMBER min read", language_strings=language_strings) }}</li>
-                {%- set previous_visible = true -%}
-            {%- endif -%}
+           
 
-            {#- Tags -#}
-            {%- if page.taxonomies and page.taxonomies.tags -%}
-                <li class="tag">{%- if previous_visible -%}{{ separator_with_class | safe }}{%- endif -%}{{- macros_translate::translate(key="tags", default="tags", language_strings=language_strings) | capitalize -}}:&nbsp;</li>
-                {%- for tag in page.taxonomies.tags -%}
-                    <li class="tag"><a href="{{ get_taxonomy_url(kind='tags', name=tag, lang=lang) | safe }}">{{ tag }}</a>
-                    {%- if not loop.last -%}
-                        ,&nbsp;
-                    {%- endif -%}
-                    </li>
-                {%- endfor -%}
-                {%- set previous_visible = true -%}
-            {%- endif -%}
+        
 
-            {#- Last updated on -#}
-            {% if page.updated %}
-                {%- set last_updated_str = macros_translate::translate(key="last_updated_on", default="Updated on $DATE", language_strings=language_strings) -%}
-                {%- set formatted_date = macros_format_date::format_date(date=page.updated, short=true, language_strings=language_strings) -%}
-                {%- set updated_str = last_updated_str | replace(from="$DATE", to=formatted_date) -%}
-                {%- set previous_visible = true -%}
-                </ul><ul class="meta last-updated"><li>{{ updated_str }}</li>
-                {#- Show link to remote changes if enabled -#}
-                {%- if config.extra.remote_repository_url and macros_settings::evaluate_setting_priority(setting="show_remote_changes", page=page, default_global_value=true) == "true" -%}
-                    <li>{%- if previous_visible -%}{{ separator_with_class | safe }}{%- endif -%}<a class="external" href="{% include "partials/history_url.html" %}" {{ blank_target }} rel="{{ rel_attributes }}">{{ macros_translate::translate(key="see_changes", default="See changes", language_strings=language_strings) }}</a></li>
-                {%- endif -%}
-            {% endif %}
+           
         </ul>
 
         {#- A page is part of a series if one of the sections above (whether it is transparent or not) has the `extra.series` parameter set to true. -#}
@@ -337,6 +280,6 @@ Current section extra: {% if current_section %}{{ current_section.extra | json_e
     </article>
 </main>
 
-{%- include "partials/extra_features.html" -%}
+
 
 {% endblock main_content %}
