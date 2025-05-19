@@ -1,7 +1,7 @@
-base_url = "https://YOUR_URL.TLD"
+base_url = "https://tabi-start-9hu.pages.dev"
 title = "site title"
-description = "YOUR_SITE_DESCRIPTION"
-author = "YOUR_NAME"
+description = "bbbb"
+author = "bbbbb"
 theme = "tabi"
 generate_feeds = true
 compile_sass = true
