@@ -2,53 +2,5 @@
 
 {% block main_content %}
 
-<main>
-    <article>
-     
 
-            <div class="admonition note">
-                <div class="admonition-icon admonition-icon-note"></div>
-                <div class="admonition-content">
-                    <strong class="admonition-title">
-                        <span title="Too long; didn't read (summary)">TL;DR</span>
-                    </strong>
-                    <p>{{ page.extra.tldr | markdown | safe }}</p>
-                </div>
-            </div>
-        {% endif %}
-
-   
-     
-
-        <section class="body">
-  
-     
-        </section>
-
-        
-         
-
-            <nav class="{{ full_width_class | default(value="") }} article-navigation">
-                <div>
-                {%- if left_link and left_label and left_title -%}
-                <a href="{{ left_link | safe }}" aria-label="{{ left_label }}" aria-describedby="left_title"><span class="arrow">←</span>&nbsp;{{ left_label }}</a>
-                <p aria-hidden="true" id="left_title">{{ left_title | truncate(length=100, end="…") | markdown(inline=true) | safe }}</p>
-                {%- endif -%}
-                </div>
-                <div>
-                {%- if right_link and right_label and right_title -%}
-                <a href="{{ right_link | safe }}" aria-label="{{ right_label }}" aria-describedby="right_title">{{ right_label }}&nbsp;<span class="arrow">→</span></a>
-                <p aria-hidden="true" id="right_title">{{ right_title | truncate(length=100, end="…") | markdown(inline=true) | safe }}</p>
-                {%- endif -%}
-                </div>
-            </nav>
-            {%- endif -%}
-        {%- endif -%}
-
-  
-
-    </article>
-</main>
-
-{%- include "partials/extra_features.html" -%}
 
