@@ -8,7 +8,7 @@ content="default-src 'self'
     {%- set hyvortalk_enabled = config.extra.hyvortalk.enabled_for_all_posts or page.extra.hyvortalk -%}
     {%- set isso_enabled = config.extra.isso.enabled_for_all_posts or page.extra.isso -%}
     {%- if page -%}
-        {%- set mermaid_enabled = macros_settings::evaluate_setting_priority(setting="mermaid", page=page, default_global_value=false) == "true" -%}
+      
     {%- endif -%}
     {%- set serve_local_mermaid = config.extra.serve_local_mermaid | default(value=true) -%}
 

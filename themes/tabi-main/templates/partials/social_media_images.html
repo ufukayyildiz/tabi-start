@@ -1,4 +1,4 @@
-{%- set social_media_card = macros_settings::evaluate_setting_priority(setting="social_media_card", page=page | default(value=""), section=section | default(value=""), default_global_value="") -%}
+
 {% if social_media_card %}
     {# Get base path from page/section #}
     {% set base_path = "" %}

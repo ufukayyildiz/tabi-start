@@ -5,7 +5,7 @@
 {%- set section_s = section | default(value="") -%}
 
 {# Quick navigation buttons #}
-{% if macros_settings::evaluate_setting_priority(setting="quick_navigation_buttons", page=page_s, section=section_s, default_global_value=false) == "true" %}
+
     <div id="button-container">
         {# Button to go show a floating Table of Contents #}
         {% if page_or_section.toc %}
@@ -35,42 +35,10 @@
     </div>
 {% endif %}
 
-{# Add KaTeX functionality #}
-{%- if macros_settings::evaluate_setting_priority(setting="katex", page=page_s, section=section_s, default_global_value=false) == "true" -%}
-    <link rel="stylesheet" href="{{ get_url(path='katex.min.css', trailing_slash=false) | safe }}">
-    <script defer src="{{ get_url(path='js/katex.min.js', trailing_slash=false) | safe }}"></script>
-{%- endif -%}
 
-{# Load mermaid.js #}
-{%- if macros_settings::evaluate_setting_priority(setting="mermaid", page=page_s, section=section_s, default_global_value=false) == "true" -%}
-    {%- if config.extra.serve_local_mermaid | default(value=true) -%}
-        <script defer src="{{ get_url(path='js/mermaid.min.js', trailing_slash=false) | safe }}"></script>
-    {%- else -%}
-        <script defer src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script>
-    {%- endif -%}
-{%- endif -%}
 
-{# Add copy button to code blocks #}
-{%- if macros_settings::evaluate_setting_priority(setting="copy_button", page=page_s, section=section_s, default_global_value=true) == "true" -%}
-    {#- Add hidden HTML elements with the translated strings for the button's interactions -#}
-    <span id="copy-success" class="hidden">
-        {{ macros_translate::translate(key="copied", default="Copied!", language_strings=language_strings) }}
-    </span>
-    <span id="copy-init" class="hidden">
-        {{ macros_translate::translate(key="copy_code_to_clipboard", default="Copy code to clipboard", language_strings=language_strings) }}
-    </span>
-    <script defer src="{{ get_url(path='js/copyCodeToClipboard.min.js', trailing_slash=false) | safe }}"></script>
-{%- endif -%}
 
-{# JavaScript to make code block names clickable when they are URLs: https://welpo.github.io/tabi/blog/shortcodes/#show-source-or-path #}
-{# Note: "add_src_to_code_block" is deprecated in favor of "code_block_name_links". It will be removed in a future release. #}
-{# See https://github.com/welpo/tabi/pull/489 #}
-{%- if macros_settings::evaluate_setting_priority(setting="code_block_name_links", page=page_s, section=section_s, default_global_value=false) == "true"
-    or macros_settings::evaluate_setting_priority(setting="add_src_to_code_block", page=page_s, section=section_s, default_global_value=false) == "true" -%}
-    <script defer src="{{ get_url(path='js/codeBlockNameLinks.min.js', trailing_slash=false) | safe }}"></script>
-{%- endif -%}
 
-{# Add backlinks to footnotes #}
-{%- if macros_settings::evaluate_setting_priority(setting="footnote_backlinks", page=page_s, section=section_s, default_global_value=false) == "true" -%}
-    <script defer src="{{ get_url(path='js/footnoteBacklinks.min.js', trailing_slash=false | safe )}}"></script>
-{%- endif -%}
+
+
+
